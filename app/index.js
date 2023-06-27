@@ -4,8 +4,18 @@ import ProgressBar from './components/ProgressBar';
 import TaskChip from './components/TaskChip';
 import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { storage, addTask } from './store';
 
 const Home = () => {
+    addTask({
+        name: 'Sarah',
+        age: 21,
+        hobby: 'cars',
+        traits: {
+            eyes: 'green',
+        }
+    })
+    console.log(storage);
     const router = useRouter();
     const todayDate = new Date();
     const options = {
@@ -24,7 +34,7 @@ const Home = () => {
                 start={{ x: 0.58, y: 1 }}
                 end={{ x: 1, y: 0 }}
             >
-                <TouchableOpacity onPress={()=> router.push('profile')} className="flex flex-row gap-2 items-center pt-12 px-2">
+                <TouchableOpacity onPress={() => router.push('profile')} className="flex flex-row gap-2 items-center pt-12 px-2">
                     <View className="h-9 w-9 bg-gray-400 rounded-full"></View>
                     <View className="flex-grow">
                         <View>
@@ -61,11 +71,13 @@ const Home = () => {
                 </View>
 
             </LinearGradient>
-            <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex items-center justify-center bg-rose-600 absolute bottom-3 rounded-full right-4">
+            <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex shadow-2xl items-center justify-center bg-rose-600 absolute bottom-3 rounded-full right-4">
                 <Text className="text-white text-4xl">+</Text>
             </TouchableOpacity>
         </View>
     )
 }
+
+
 
 export default Home;
