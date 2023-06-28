@@ -4,6 +4,7 @@ import { Stack, useRouter } from 'expo-router';
 import CategoryChip from './components/CategoryChip';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
+import DatePicker from 'react-native-date-picker'
 
 const addTask = () => {
     const { colorScheme } = useColorScheme();
@@ -13,6 +14,7 @@ const addTask = () => {
     const [activeCategory, setActiveCategory] = useState('design')
     const [showPicker, setShowPicker] = useState(false)
     const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(true)
 
     return (
         <View className="flex flex-1 bg-white dark:bg-gray-900 space-y-3 h-screen w-screen p-3 pt-0" >
@@ -49,6 +51,20 @@ const addTask = () => {
                     <TextInput autoCapitalize='sentences' name="hi" placeholder="Enter task title" maxLength={40} onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
             </View>
+            {/* <DatePicker
+                modal
+                open={open}
+                date={date}
+                onConfirm={(date) => {
+                    setOpen(false)
+                    setDate(date)
+                }}
+                mode='date'
+                onCancel={() => {
+                    setOpen(false)
+                }}
+            /> */}
+            {/* <DatePicker date={date} onDateChange={setDate} /> */}
             <View className="flex flex-row gap-x-3">
                 <View className="flex-grow">
                     <Text className="font-extrabold text-2xl dark:text-white">Start Time</Text>
@@ -69,8 +85,8 @@ const addTask = () => {
                     <TextInput multiline editable placeholder="Enter task description" onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
             </View>
-            <TouchableOpacity className="py-4 relative top-9 rounded-md bg-rose-500">
-                <Text className="text-white text-center">Add Task</Text>
+            <TouchableOpacity className="py-3 relative top-9 rounded-md bg-rose-500">
+                <Text className="text-white text-center text-lg">Add Task</Text>
             </TouchableOpacity>
         </View>
     )

@@ -35,7 +35,7 @@ const TaskDetails = () => {
         </View>
       </View>
       <View className="w-full flex flex-row pb-1 px-1 justify-between">
-        <View className="py-2 px-5 bg-rose-500 rounded-md"><Text className="text-white">Status</Text></View>
+        <View className="py-3 px-5 bg-rose-500 rounded-md"><Text className="text-white">Status</Text></View>
       </View>
       <View>
         <Text className="font-extrabold text-2xl dark:text-white">Task Description</Text>

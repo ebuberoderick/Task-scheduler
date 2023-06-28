@@ -5,6 +5,7 @@ import { useColorScheme } from 'nativewind';
 import { Stack, useRouter } from 'expo-router';
 import TaskChip from './components/TaskChip';
 import { Picker } from '@react-native-picker/picker';
+// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import AddModal from './components/AddModal';
 
 const profile = () => {
@@ -13,8 +14,9 @@ const profile = () => {
     const statusBarTheme = colorScheme === 'dark' ? 'light' : 'auto';
     const [currency, setCurrency] = useState('15');
     const [modalVisible, setModalVisible] = useState(false);
+    // const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     return (
-        <ScrollView className="flex flex-1 space-y-4 bg-white dark:bg-gray-900 h-screen w-screen p-3 pt-0" >
+        <ScrollView className="flex flex-1 space-y-4 bg-white dark:bg-gray-900 h-screen w-screen p-3 pt-0">
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -23,8 +25,12 @@ const profile = () => {
                     <View className="w-full bg-white opacity-100 rounded-md p-4">
                         <Text>hi</Text>
                         <View className="flex flex-row gap-3">
-                            <TouchableOpacity onPress={()=> setModalVisible(false)} className="text-base flex-1 py-4 rounded-md"><Text className="dark:text-white text-center">close</Text></TouchableOpacity>
-                            <TouchableOpacity className="bg-rose-500 flex-1 text-base py-4 rounded-md"><Text className="text-white text-center">Add Category</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => setModalVisible(false)} className="text-base flex-1 py-4 rounded-md">
+                                <Text className="dark:text-white text-center">close</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity className="bg-rose-500 flex-1 text-base py-4 rounded-md">
+                                <Text className="text-white text-center">Add Category</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -49,7 +55,7 @@ const profile = () => {
                 </View>
                 <View className="flex-grow">
                     <View>
-                        <Text className="text-2xl font-extrabold text-center">Ebube Roderick</Text>
+                        <Text className="text-2xl font-extrabold text-center dark:text-white">Ebube Roderick</Text>
                         <Text className="text-base text-gray-400 text-center">ebuberoderick2@gmail.com</Text>
                     </View>
                 </View>
@@ -90,7 +96,7 @@ const profile = () => {
                 </View>
             </View>
             <View className="space-y-5">
-                <TouchableOpacity onPress={()=> setModalVisible(true)} className="flex justify-between flex-row gap-2 items-center">
+                <TouchableOpacity onPress={() => setModalVisible(true)} className="flex justify-between flex-row gap-2 items-center">
                     <Text className="text-base capitalize dark:text-white">Add Category</Text>
                 </TouchableOpacity>
                 <View className="flex justify-between flex-row gap-2 items-center">

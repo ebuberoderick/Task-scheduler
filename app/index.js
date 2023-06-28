@@ -5,6 +5,7 @@ import TaskChip from './components/TaskChip';
 import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { storage, addTask } from './store';
+import { useState } from 'react';
 
 const Home = () => {
     addTask({
@@ -24,6 +25,17 @@ const Home = () => {
         month: 'long',
         day: 'numeric',
     };
+    const timeOption = {
+        hour: '2-digit',
+        minute: 'numeric',
+    }
+
+    const [time,setTime] = useState('')
+
+    setInterval(() => {
+        setTime(todayDate.toLocaleString('en-IN', timeOption).split(' ')[0])
+    }, 1000);
+
     return (
         <View className="flex flex-1 h-screen w-screen pt-0" >
             <StatusBar style={'light'} />
@@ -48,17 +60,41 @@ const Home = () => {
                     </View>
                 </TouchableOpacity>
                 <View className="h-96 flex justify-center">
-                    {/* <View className="h-54 space-y-4 rounded-md p-3 py-4">
-                        <Text className="text-red-300 font-semibold text-4xl">Today's progress summary</Text>
-                        <Text className="text-white text-xl"> 12 Task </Text>
-                        <View>
-                            <ProgressBar />
+                    <Text className="text-red-400 font-semibold relative top-6 pl-3 text-4xl">Today's progress summary</Text>
+                    <View className="flex flex-1 pl-3 relative">
+                       <View className="absolute bg-white w-36 h-52 rounded-lg right-12 top-10"></View> 
+                        <View className="h-54 space-y-4 rounded-md py-4">
+                            <View className="flex flex-row gap-2 items-end">
+                                
+                                <Text className="font-extrabold text-7xl pt-10 text-white">
+                                    {
+                                        time.split(':')[0] < 10 && '0'
+                                    }
+                                    {time}
+                                </Text>
+                                <Text className="text-base relative bottom-2 capitalize text-white">{todayDate.toLocaleString('en-IN', timeOption).split(' ')[1]}</Text>
+                            </View>
+                            <Text className="text-white text-xl">{todayDate.toLocaleString('en-IN', options)}</Text>
                         </View>
-                        <Text className="text-white text-xl">{todayDate.toLocaleString('en-IN', options)}</Text>
-                    </View> */}
+                        <View className="flex-grow space-y-4">
+                            <Text className="text-white text-xl"> 12 Task </Text>
+                            <View>
+                                <View className="flex flex-row">
+                                    <View className="w-12 h-12 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
+                                    <View className="w-12 h-12 -ml-7 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
+                                    <View className="w-12 h-12 -ml-7 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
+                                    <View className="w-12 h-12 -ml-7 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
+                                    <View className="w-12 h-12 -ml-7 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
+                                </View>
+                                <View className="w-full pr-3 pt-3">
+                                    <ProgressBar />
+                                </View>
+                            </View>
+                        </View>
+                    </View>
                 </View>
                 <View>
-                    <Text className="text-2xl font-extrabold text-white px-3 py-2">Today's Task</Text>
+                    <Text className="text-2xl font-extrabold text-white px-3 py-2 relative bottom-1">Today's Task</Text>
                 </View>
                 <View className="flex flex-1 p-3 bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden">
                     <ScrollView showsVerticalScrollIndicator={false} className="flex flex-1 bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden">
@@ -71,7 +107,7 @@ const Home = () => {
                 </View>
 
             </LinearGradient>
-            <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex shadow-2xl items-center justify-center bg-rose-600 absolute bottom-3 rounded-full right-4">
+            <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex shadow-md shadow-black items-center justify-center bg-rose-600 absolute bottom-3 rounded-full right-4">
                 <Text className="text-white text-4xl">+</Text>
             </TouchableOpacity>
         </View>
