@@ -83,7 +83,7 @@ const profile = () => {
                 {/* <Text className="text-base capitalize text-gray-400">15 mins</Text> */}
                 <View className="relative w-36">
                     <Picker
-                        className="bg-black"
+                        className="bg-black dark:text-white"
                         selectedValue={currency}
                         onValueChange={currentCurrency => setCurrency(currentCurrency)}>
                         <Picker.Item label="none" value="none" />

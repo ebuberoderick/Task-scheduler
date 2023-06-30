@@ -5,8 +5,19 @@
     "web": {
       "bundler": "metro"
     },
-    "name": "todo-app",
-    "slug": "todo-app",
-    "orientation": "portrait"
+    "name": "Task scheduler",
+    "slug": "task-scheduler",
+    "orientation": "portrait",
+    "extra": {
+      "eas": {
+        "projectId": "cfcc684b-e87b-439c-a2c3-f7c43a60d6df"
+      }
+    },
+    "android": {
+      "package": "com.bube_code.taskscheduler"
+    },
+    "ios": {
+      "bundleIdentifier": "task-scheduler"
+    }
   }
 }

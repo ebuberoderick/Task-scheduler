@@ -5,8 +5,10 @@ import CategoryChip from './components/CategoryChip';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 import DatePicker from 'react-native-date-picker'
+import { connect } from 'react-redux';
+import {addTask} from '../store/actions/taskActions'
 
-const addTask = () => {
+const AddTask = ({addTask}) => {
     const { colorScheme } = useColorScheme();
     const statusBarTheme = colorScheme === 'dark' ? 'light' : 'auto';
     const List = ['design', 'learning', 'integration', 'implementation', 'study', 'programming', 'build', 'development']
@@ -15,6 +17,10 @@ const addTask = () => {
     const [showPicker, setShowPicker] = useState(false)
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(true)
+
+    const handlerAddTask = () =>{
+        addTask(2)
+    }
 
     return (
         <View className="flex flex-1 bg-white dark:bg-gray-900 space-y-3 h-screen w-screen p-3 pt-0" >
@@ -85,11 +91,20 @@ const addTask = () => {
                     <TextInput multiline editable placeholder="Enter task description" onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
             </View>
-            <TouchableOpacity className="py-3 relative top-9 rounded-md bg-rose-500">
+            <TouchableOpacity onPress={()=> handlerAddTask()} className="py-3 relative top-9 rounded-md bg-rose-500">
                 <Text className="text-white text-center text-lg">Add Task</Text>
             </TouchableOpacity>
         </View>
     )
 }
 
-export default addTask
+
+const mapStateToProps = (state) => ({
+
+})
+
+const mapDispatchToProps = {
+    addTask
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask)
