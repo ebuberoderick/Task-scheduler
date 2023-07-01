@@ -5,22 +5,44 @@ import CategoryChip from './components/CategoryChip';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 import DatePicker from 'react-native-date-picker'
-import { connect } from 'react-redux';
-import {addTask} from '../store/actions/taskActions'
+import { useDispatch } from 'react-redux';
+import useFormik from './hooks/formik';
 
-const AddTask = ({addTask}) => {
+const AddTask = () => {
+    const dispatch = useDispatch()
+    const router = useRouter();
     const { colorScheme } = useColorScheme();
     const statusBarTheme = colorScheme === 'dark' ? 'light' : 'auto';
     const List = ['design', 'learning', 'integration', 'implementation', 'study', 'programming', 'build', 'development']
     List.push('CJDL51kPNwl')
-    const [activeCategory, setActiveCategory] = useState('design')
     const [showPicker, setShowPicker] = useState(false)
-    const [date, setDate] = useState(new Date())
+    // const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(true)
+    const formik = useFormik({
+        required: {
+            title: 'Please enter your task title',
+            category: 'No category',
+            date: 'Please enter a date',
+            start_time: 'Please enter the start time',
+            end_time: 'Please enter the end time',
+            description: 'Please enter some description about your task'
+        },
+        initialValues: {
+            _id : new Date().getFullYear() + '' + new Date().getMonth() + '' + new Date().getDate() + '' + new Date().getHours() + '' + new Date().getMinutes() + ''+ new Date().getSeconds(),
+            status: 'pending',
+            title: '',
+            category: List[0] || '',
+            date: '',
+            start_time: '',
+            end_time: '',
+            description: ''
+        },
+        onSubmit: async (value) => {
+            dispatch({type: "ADD_TASK", payload : value})
+            router.push('/')
+        }
+    })
 
-    const handlerAddTask = () =>{
-        addTask(2)
-    }
 
     return (
         <View className="flex flex-1 bg-white dark:bg-gray-900 space-y-3 h-screen w-screen p-3 pt-0" >
@@ -38,14 +60,14 @@ const AddTask = ({addTask}) => {
             <View>
                 <Text className="font-extrabold text-2xl dark:text-white">Task Title</Text>
                 <View className="flex">
-                    <TextInput autoCapitalize='sentences' autoFocus placeholder="Enter task title" maxLength={40} onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput autoCapitalize='sentences' autoFocus placeholder="Enter task title" maxLength={40} onChangeText={formik.handlerChange('title')} value={formik.value.title} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
             </View>
             <View className="space-y-1">
                 <Text className="font-extrabold text-2xl dark:text-white">Category</Text>
                 <FlatList
                     data={List}
-                    renderItem={({ item }) => <CategoryChip data={item} active={activeCategory} setActive={(e) => setActiveCategory(e)} />}
+                    renderItem={({ item }) => <CategoryChip data={item} active={formik.value.category} setActive={formik.handlerChange('category')} />}
                     keyExtractor={item => item}
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -54,57 +76,34 @@ const AddTask = ({addTask}) => {
             <View>
                 <Text className="font-extrabold text-2xl dark:text-white">Date</Text>
                 <View className="flex">
-                    <TextInput autoCapitalize='sentences' name="hi" placeholder="Enter task title" maxLength={40} onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput placeholder="Enter task Date" onChangeText={formik.handlerChange('date')} value={formik.value.date} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
             </View>
-            {/* <DatePicker
-                modal
-                open={open}
-                date={date}
-                onConfirm={(date) => {
-                    setOpen(false)
-                    setDate(date)
-                }}
-                mode='date'
-                onCancel={() => {
-                    setOpen(false)
-                }}
-            /> */}
-            {/* <DatePicker date={date} onDateChange={setDate} /> */}
             <View className="flex flex-row gap-x-3">
                 <View className="flex-grow">
                     <Text className="font-extrabold text-2xl dark:text-white">Start Time</Text>
                     <View className="flex">
-                        <TextInput editable placeholder="Enter task description" onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                        <TextInput editable placeholder="Enter task description" onChangeText={formik.handlerChange('start_time')} value={formik.value.start_time} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                     </View>
                 </View>
                 <View className="flex-grow">
                     <Text className="font-extrabold text-2xl dark:text-white">End Time</Text>
                     <View className="flex">
-                        <TextInput editable placeholder="Enter task description" onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                        <TextInput editable placeholder="Enter task description" onChangeText={formik.handlerChange('end_time')} value={formik.value.end_time} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                     </View>
                 </View>
             </View>
             <View>
                 <Text className="font-extrabold text-2xl dark:text-white">Task Description</Text>
                 <View className="flex">
-                    <TextInput multiline editable placeholder="Enter task description" onChangeText={(e) => console.log(e)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput multiline editable placeholder="Enter task description" onChangeText={formik.handlerChange('description')} value={formik.value.description} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
             </View>
-            <TouchableOpacity onPress={()=> handlerAddTask()} className="py-3 relative top-9 rounded-md bg-rose-500">
+            <TouchableOpacity onPress={() => formik.handlerSubmit()} className="py-3 relative top-9 rounded-md bg-rose-500">
                 <Text className="text-white text-center text-lg">Add Task</Text>
             </TouchableOpacity>
         </View>
     )
 }
 
-
-const mapStateToProps = (state) => ({
-
-})
-
-const mapDispatchToProps = {
-    addTask
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddTask)
+export default AddTask

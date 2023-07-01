@@ -1,5 +1,5 @@
 const initialState = {
-    task : [1,2,3,4]
+    task : []
 }
 
 const taskReducer = (state = initialState, { type, payload }) => {

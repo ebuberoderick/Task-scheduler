@@ -2,11 +2,16 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
-import { Stack, useRouter } from 'expo-router';
+import { Stack, useRouter, useSearchParams } from 'expo-router';
 import TaskChip from '../components/TaskChip';
+import { useSelector } from 'react-redux';
 
 const TaskDetails = () => {
   const router = useRouter();
+  const params = useSearchParams()
+  const tasks = useSelector((state) => state.task.task)
+  const data = tasks.filter(task => task._id === params.id)
+  // console.log('hi',data);
   const { colorScheme } = useColorScheme();
   const statusBarTheme = colorScheme === 'dark' ? 'light' : 'auto';
   return (
@@ -23,24 +28,24 @@ const TaskDetails = () => {
         }}
       />
       <View className="">
-        <Text className="font-extrabold text-3xl dark:text-white">Task Title</Text>
-        <Text className="text-lg relative bottom-1 text-gray-400">Category</Text>
+        <Text className="font-extrabold text-3xl dark:text-white">{data?.title}</Text>
+        <Text className="text-lg relative bottom-1 text-gray-400">{data?.category}</Text>
       </View>
       <View className="flex relative bottom-2 flex-row gap-2 items-center">
-        <View className="h-9 w-9 bg-gray-400 rounded-full"></View>
+        <View className="h-9 w-9 bg-rose-200 shadow-md shadow-rose-400 rounded-full"></View>
         <View className="flex-grow">
           <View>
-            <Text className="text-base dark:text-white">09-06-2023 , 09:00am - 11:00am</Text>
+            <Text className="text-base dark:text-white">{data?.date}, {data?.start_time} - {data?.end_time}</Text>
           </View>
         </View>
       </View>
       <View className="w-full flex flex-row pb-1 px-1 justify-between">
-        <View className="py-3 px-5 bg-rose-500 rounded-md"><Text className="text-white">Status</Text></View>
+        <View className="py-3 px-5 bg-rose-500 rounded-md"><Text className="text-white">{data?.status}</Text></View>
       </View>
       <View>
         <Text className="font-extrabold text-2xl dark:text-white">Task Description</Text>
         <Text className="text-base relative bottom-1 text-gray-400">
-          lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+          {data?.description}
         </Text>
       </View>
       <View className="flex flex-row justify-between items-center">
@@ -52,7 +57,7 @@ const TaskDetails = () => {
       </View>
       <View>
         {
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value, index) => (
+          tasks.filter(task => task._id !== params.id).map((value, index) => (
             <TaskChip data={value} key={index} />
           ))
         }
