@@ -1,7 +1,11 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import Draggable from 'react-native-draggable';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 const TaskDetailsComponent = ({ data }) => {
+    const dispatch = useDispatch()
+
     return (
         <View className="space-y-3">
             <View className="">
@@ -16,10 +20,26 @@ const TaskDetailsComponent = ({ data }) => {
                     </View>
                 </View>
             </View>
-            <View className="w-full flex flex-row pb-1 px-1 justify-between">
-                <TouchableOpacity onLongPress={()=> console.log('long-pressed')} className={`py-3 px-5 rounded-md ${data?.status === 'pending' ? 'bg-yellow-500' : data?.status === 'cancelled' ? 'bg-rose-500' : 'bg-teal-600'}`}><Text className="text-white">{data?.status}</Text></TouchableOpacity>
+
+            <View className="">
+                <Draggable maxX={150} minX={0} maxY={-13} minY={-13} shouldReverse x={0} y={-13}
+                    children={(
+                        <View className="w-full flex flex-row pb-1 px-1 justify-between">
+                            <View className={`py-3 px-5 rounded-md ${data?.status === 'pending' ? 'bg-yellow-500' : data?.status === 'cancelled' ? 'bg-rose-500' : 'bg-teal-600'}`}><Text className="text-white">{data?.status}</Text></View>
+                        </View>
+                    )}
+                    animatedViewProps={{ accessibilityHint: 'drag' }}
+                    onDragRelease={(event, gestureState) => {
+                        if (gestureState.moveX > 120) {
+                            dispatch({ type: "UPDATE_TASK", payload: { id: data?._id, status: data?.status === 'pending' && 'completed' } })
+                        }
+                    }}
+                    onLongPress={() => console.log('long pressed')}
+                    disabled={data?.status === 'pending' ? false : true}
+                />
             </View>
-            <View>
+
+            <View className="relative top-5">
                 <Text className="font-extrabold text-2xl dark:text-white">Task Description</Text>
                 <Text className="text-base relative bottom-1 text-gray-400">
                     {data?.description}
