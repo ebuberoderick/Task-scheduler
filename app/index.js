@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 
 
-const Home = ({task}) => {
+const Home = ({ task }) => {
 
     const router = useRouter();
     const todayDate = new Date();
@@ -46,7 +46,26 @@ const Home = ({task}) => {
                 <View className="h-80 flex justify-center">
                     <Text className="text-red-400 font-semibold relative top-3 pl-3 text-2xl">Today's progress summary</Text>
                     <View className="flex flex-1 pl-3 relative">
-                       <View className="absolute bg-white dark:bg-gray-800 w-32 h-48 rounded-lg right-12 top-10"></View> 
+                        <TouchableOpacity onPress={() => console.log('hi')} className="absolute p-2 space-y-3 shadow-xl shadow-white bg-white dark:bg-gray-800 w-60 h-36 rounded-lg right-3 top-10">
+                            <View className="flex flex-row items-center gap-1">
+                                <View className="h-10 w-10 bg-gray-400 rounded-full"></View>
+                                <View className="space-y-1 flex-grow">
+                                    <View>
+                                        <Text className="font-extrabold text-base dark:text-white">title</Text>
+                                    </View>
+                                    <View className="">
+                                        <Text className="font-extrabold text-gray-400">
+                                            09:00 am - 12:30 pm
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View>
+                                <Text>
+                                    REST UI is not available yet - please wait until it is available and available in your browser until then
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
                         <View className="rounded-md py-2">
                             <View className="flex flex-row gap-2 items-end">
                                 <Text className="font-extrabold text-5xl pt-10 text-white">{dayjs().format('hh:mm')}</Text>
@@ -92,7 +111,7 @@ const Home = ({task}) => {
 }
 
 const mapStateToProps = (state) => ({
-    task : state.task.task
+    task: state.task.task
 })
 
 export default connect(mapStateToProps)(Home);
