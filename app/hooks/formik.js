@@ -8,7 +8,6 @@ const useFormik = (props) => {
         setValues(prevValue => ({ ...prevValue, [name]: text }))
     }
 
-
     const validator = async () => {
         setError([])
         for (const key in required) {

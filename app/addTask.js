@@ -39,10 +39,10 @@ const AddTask = () => {
             description: ''
         },
         onSubmit: async (value,error) => {
-            console.log(error, value);
-            
-            // dispatch({ type: "ADD_TASK", payload: value })
-            // router.push('/')
+            // console.log(error, value);
+
+            dispatch({ type: "ADD_TASK", payload: value })
+            router.push('/')
         }
     })
 
