@@ -37,11 +37,9 @@ const AddTask = () => {
             end_time: '',
             description: ''
         },
-        onSubmit: async (value, error) => {
-            if (!error) {
-                dispatch({ type: "ADD_TASK", payload: value })
-                router.push('/')
-            }
+        onSubmit: async (value) => {
+            dispatch({ type: "ADD_TASK", payload: value })
+            router.push('/')
         }
     })
 
@@ -121,7 +119,7 @@ const AddTask = () => {
                 </View>
                 {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
             </View>
-            <TouchableOpacity onPress={() => formHandler.handlerSubmit()} className="py-3 relative top-9 rounded-md bg-rose-500">
+            <TouchableOpacity onPress={() => formHandler.submit()} className="py-3 relative top-9 rounded-md bg-rose-500">
                 <Text className="text-white text-center text-lg">Add Task</Text>
             </TouchableOpacity>
         </View>

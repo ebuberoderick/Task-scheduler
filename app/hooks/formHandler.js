@@ -13,29 +13,28 @@ const useFormHandler = (props) => {
         let error = []
         for (const key in required) {
             if (value.hasOwnProperty(key) && value[key] === '') {
-                error = [{ ...error[0] , [key]: `${required[key]}` }]
+                error = [{ ...error[0], [key]: `${required[key]}` }]
             }
         }
         setError(error[0])
         return error
     }
 
-    const handlerSubmit = async () => {
+    const submit = async () => {
         let err = await validator()
         let anErr = ''
         if (err.length > 0) {
             anErr = true
         } else {
-            anErr = false
+            return props.onSubmit(value)
         }
-        return props.onSubmit(value, anErr)
     }
 
     const reset = name => {
         setValues(prevValue => ({ ...prevValue, [name]: props.initialValues }))
     }
 
-    return { value, setValues, handlerChange, handlerSubmit, reset, error }
+    return { value, setValues, handlerChange, submit, reset, error }
 }
 
 export default useFormHandler
