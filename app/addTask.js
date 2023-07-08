@@ -1,12 +1,11 @@
-import { View, Text, TextInput, FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Stack, useRouter } from 'expo-router';
 import CategoryChip from './components/CategoryChip';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
-import DatePicker from 'react-native-date-picker'
 import { useDispatch } from 'react-redux';
-import useFormik from './hooks/formik';
+import useFormHandler from './hooks/formHandler';
 import DateTime from './components/DateTime';
 
 const AddTask = () => {
@@ -19,7 +18,7 @@ const AddTask = () => {
     const [showDate, setShowDate] = useState(false)
     const [showStartTime, setShowStartTime] = useState(false)
     const [showEndTime, setShowEndTime] = useState(false)
-    const formik = useFormik({
+    const formHandler = useFormHandler({
         required: {
             title: 'Please enter your task title',
             category: 'No category',
@@ -38,11 +37,11 @@ const AddTask = () => {
             end_time: '',
             description: ''
         },
-        onSubmit: async (value,error) => {
-            // console.log(error, value);
-
-            dispatch({ type: "ADD_TASK", payload: value })
-            router.push('/')
+        onSubmit: async (value, error) => {
+            if (!error) {
+                dispatch({ type: "ADD_TASK", payload: value })
+                router.push('/')
+            }
         }
     })
 
@@ -53,9 +52,9 @@ const AddTask = () => {
                 showDate={showDate}
                 showStartTime={showStartTime}
                 showEndTime={showEndTime}
-                setShowDate={(e)=> {setShowDate(false),formik.value.date=e}}
-                setShowStartTime={(e)=> {setShowStartTime(false),formik.value.start_time=e}}
-                setShowEndTime={(e)=> {setShowEndTime(false),formik.value.end_time=e}}
+                setShowDate={(e) => { setShowDate(false), formHandler.value.date = e }}
+                setShowStartTime={(e) => { setShowStartTime(false), formHandler.value.start_time = e }}
+                setShowEndTime={(e) => { setShowEndTime(false), formHandler.value.end_time = e }}
             />
             <StatusBar style={statusBarTheme} />
             <Stack.Screen
@@ -71,53 +70,58 @@ const AddTask = () => {
             <View>
                 <Text className="font-extrabold text-2xl dark:text-white">Task Title</Text>
                 <View className="flex">
-                    <TextInput autoCapitalize='sentences' autoFocus placeholder="Enter task title" maxLength={40} onChangeText={formik.handlerChange('title')} value={formik.value.title} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput autoCapitalize='sentences' autoFocus placeholder="Enter task title" maxLength={40} onChangeText={formHandler.handlerChange('title')} value={formHandler.value.title} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
+                {formHandler.error?.title && <Text className="text-red-500">{formHandler.error.title}</Text>}
             </View>
             <View className="space-y-1">
                 <Text className="font-extrabold text-2xl dark:text-white">Category</Text>
                 <FlatList
                     data={List}
-                    renderItem={({ item }) => <CategoryChip data={item} active={formik.value.category} setActive={formik.handlerChange('category')} />}
+                    renderItem={({ item }) => <CategoryChip data={item} active={formHandler.value.category} setActive={formHandler.handlerChange('category')} />}
                     keyExtractor={item => item}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 />
+                {formHandler.error?.category && <Text className="text-red-500">{formHandler.error.category}</Text>}
             </View>
             <View className="">
                 <Text className="font-extrabold text-2xl dark:text-white">Set Date</Text>
                 <View className="flex">
                     <TouchableOpacity onPress={() => setShowDate(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                        <Text className=" text-base">{formik.value.date === '' ? 'Set Task Date' : formik.value.date}</Text>
+                        <Text className=" text-base">{formHandler.value.date === '' ? 'Set Task Date' : formHandler.value.date}</Text>
                     </TouchableOpacity>
                 </View>
+                {formHandler.error?.date && <Text className="text-red-500">{formHandler.error.date}</Text>}
             </View>
-
             <View className="flex flex-row gap-x-3">
                 <View className="flex-grow">
                     <Text className="font-extrabold text-2xl dark:text-white">Start Time</Text>
                     <View className="flex">
                         <TouchableOpacity onPress={() => setShowStartTime(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                            <Text className=" text-base">{formik.value.start_time === '' ? 'Set start time' : formik.value.start_time}</Text>
+                            <Text className=" text-base">{formHandler.value.start_time === '' ? 'Set start time' : formHandler.value.start_time}</Text>
                         </TouchableOpacity>
                     </View>
+                    {formHandler.error?.start_time && <Text className="text-red-500">{formHandler.error.start_time}</Text>}
                 </View>
                 <View className="flex-grow">
                     <Text className="font-extrabold text-2xl dark:text-white">End Time</Text>
                     <View className="flex">
                         <TouchableOpacity onPress={() => setShowEndTime(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                            <Text className=" text-base">{formik.value.end_time === '' ? 'Set end time' : formik.value.end_time}</Text>
+                            <Text className=" text-base">{formHandler.value.end_time === '' ? 'Set end time' : formHandler.value.end_time}</Text>
                         </TouchableOpacity>
                     </View>
+                    {formHandler.error?.end_time && <Text className="text-red-500">{formHandler.error.end_time}</Text>}
                 </View>
             </View>
             <View>
                 <Text className="font-extrabold text-2xl dark:text-white">Task Description</Text>
                 <View className="flex">
-                    <TextInput multiline editable placeholder="Enter task description" onChangeText={formik.handlerChange('description')} value={formik.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput multiline editable placeholder="Enter task description" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
+                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
             </View>
-            <TouchableOpacity onPress={() => formik.handlerSubmit()} className="py-3 relative top-9 rounded-md bg-rose-500">
+            <TouchableOpacity onPress={() => formHandler.handlerSubmit()} className="py-3 relative top-9 rounded-md bg-rose-500">
                 <Text className="text-white text-center text-lg">Add Task</Text>
             </TouchableOpacity>
         </View>
