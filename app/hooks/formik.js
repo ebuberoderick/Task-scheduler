@@ -9,14 +9,18 @@ const useFormik = (props) => {
     }
 
 
-    const handlerSubmit = async () => {
+    const validator = async () => {
         setError([])
         for (const key in required) {
             if (value.hasOwnProperty(key) && value[key] === '') {
                 setError(prevValue => ([...prevValue, { [key]: `${required[key]}` }]))
             }
         }
+    }
 
+    const handlerSubmit = async () => {
+        await validator()
+        
         return props.onSubmit(value, error)
     }
 

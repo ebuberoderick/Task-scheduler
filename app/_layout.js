@@ -1,14 +1,18 @@
 import { Stack } from "expo-router"; 
-import store from "./store/store";
+import reduxStore from "./store/store";
 import { Provider } from "react-redux";
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 
 const Layout = () => {
+    const {store,persistor} = reduxStore()
     return (
         <Provider store={store}>
-            <Stack />
+            <PersistGate loading={null} persistor={persistor}>
+                <Stack />
+            </PersistGate>
         </Provider>
-    
     )
 }
 

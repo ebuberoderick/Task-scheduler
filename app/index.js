@@ -6,6 +6,7 @@ import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
+import * as Notification from 'expo-notifications'
 
 
 
@@ -103,6 +104,9 @@ const Home = ({ task }) => {
                     </ScrollView>
                 </View>
             </LinearGradient>
+            {/* <TouchableOpacity onPress={() => router.push(`playground`)} className="h-12 w-12 flex shadow-md shadow-teal-500 items-center justify-center bg-teal-600 absolute bottom-20 rounded-full right-4">
+                <Text className="text-white text-4xl">+</Text>
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex shadow-md shadow-rose-500 items-center justify-center bg-rose-600 absolute bottom-3 rounded-full right-4">
                 <Text className="text-white text-4xl">+</Text>
             </TouchableOpacity>

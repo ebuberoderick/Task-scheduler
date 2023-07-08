@@ -38,9 +38,11 @@ const AddTask = () => {
             end_time: '',
             description: ''
         },
-        onSubmit: async (value) => {
-            dispatch({ type: "ADD_TASK", payload: value })
-            router.push('/')
+        onSubmit: async (value,error) => {
+            console.log(error, value);
+            
+            // dispatch({ type: "ADD_TASK", payload: value })
+            // router.push('/')
         }
     })
 
@@ -82,12 +84,6 @@ const AddTask = () => {
                     showsHorizontalScrollIndicator={false}
                 />
             </View>
-            {/* <View>
-                <Text className="font-extrabold text-2xl dark:text-white">Date</Text>
-                <View className="flex">
-                    <TextInput placeholder="Enter task Date" onChangeText={formik.handlerChange('date')} value={formik.value.date} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
-                </View>
-            </View> */}
             <View className="">
                 <Text className="font-extrabold text-2xl dark:text-white">Set Date</Text>
                 <View className="flex">
