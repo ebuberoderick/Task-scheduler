@@ -4,11 +4,9 @@ const initialState = {
 
 
 const update = (e,data) => {
-
   const newState = data.map(obj =>
     obj._id === e.id ? { ...obj, status : e.status } : obj
   );
-
   return newState
 }
 

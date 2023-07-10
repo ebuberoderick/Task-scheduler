@@ -7,19 +7,30 @@ import { StatusBar } from 'expo-status-bar';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import * as Notification from 'expo-notifications'
+import { useEffect, useState } from 'react';
 
 
 
 const Home = ({ task }) => {
-
+    const [time,setTime] = useState(dayjs().format('hh:mm'))
+    const [dayLight,setDayLight] = useState(dayjs().format('a'))
     const router = useRouter();
-    const todayDate = new Date();
+    const [todayDate,settodayDate] = useState(new Date())
     const options = {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
     };
+
+    useEffect(() => {
+        setInterval(() => {
+            setTime(dayjs().format('hh:mm'));
+            setDayLight(dayjs().format('a'))
+            settodayDate(new Date())
+        }, 1000 * 1); 
+    }, []);
+
 
     return (
         <View className="flex flex-1 h-screen w-screen pt-0" >
@@ -69,8 +80,8 @@ const Home = ({ task }) => {
                         </TouchableOpacity>
                         <View className="rounded-md py-2">
                             <View className="flex flex-row gap-2 items-end">
-                                <Text className="font-extrabold text-5xl pt-10 text-white">{dayjs().format('hh:mm')}</Text>
-                                <Text className="text-sm lowercase relative bottom-2 text-white">{dayjs().format('a')}</Text>
+                                <Text className="font-extrabold text-5xl pt-10 text-white">{time}</Text>
+                                <Text className="text-sm uppercase relative bottom-2 text-white">{dayLight}</Text>
                             </View>
                             <Text className="text-white ">{todayDate.toLocaleString('en-IN', options)}</Text>
                         </View>

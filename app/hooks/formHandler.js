@@ -1,4 +1,3 @@
-import axios from "axios"
 import React from "react"
 
 const useFormHandler = (props) => {
@@ -22,10 +21,7 @@ const useFormHandler = (props) => {
 
     const submit = async () => {
         let err = await validator()
-        let anErr = ''
-        if (err.length > 0) {
-            anErr = true
-        } else {
+        if (err.length <= 0){
             return props.onSubmit(value)
         }
     }
