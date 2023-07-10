@@ -64,6 +64,9 @@ export default function App() {
 }
 
 async function schedulePushNotification() {
+  let allNotification = await Notifications.getAllScheduledNotificationsAsync()
+  // NotificationRequestListener
+  allNotification.map((notification) => {notification.trigger})
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "You've got mail! 📬",
