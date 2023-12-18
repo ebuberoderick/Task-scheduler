@@ -57,13 +57,8 @@ const AddTask = () => {
             <StatusBar style={statusBarTheme} />
             <Stack.Screen
                 options={{
-                    title: 'Add Task',
+                    title: 'New Message',
                     headerBackVisible: true,
-                    headerLeft: ()=> {
-                        <TouchableOpacity onPress={() => router.back()}>
-                            <Text>Back</Text>
-                        </TouchableOpacity>
-                    },
                     headerShadowVisible: false,
                     headerStyle: { backgroundColor: colorScheme === 'dark' ? '#111827' : '#fff' },
                     headerTitleStyle: {
@@ -72,44 +67,31 @@ const AddTask = () => {
                 }}
             />
             <View>
-                <Text className="font-extrabold text-2xl dark:text-white">Task Title</Text>
+                <Text className="font-extrabold text-2xl dark:text-white">Contact Number</Text>
                 <View className="flex">
-                    <TextInput autoCapitalize='sentences' autoFocus placeholder="Enter task title" maxLength={40} onChangeText={formHandler.handlerChange('title')} value={formHandler.value.title} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput type="number" editable placeholder="Enter Contact Number" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
-                {formHandler.error?.title && <Text className="text-red-500">{formHandler.error.title}</Text>}
+                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
             </View>
-            <View className="space-y-1">
-                <Text className="font-extrabold text-2xl dark:text-white">Category</Text>
-                <FlatList
-                    data={List}
-                    renderItem={({ item }) => <CategoryChip data={item} active={formHandler.value.category} setActive={formHandler.handlerChange('category')} />}
-                    keyExtractor={item => item}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                />
-                {formHandler.error?.category && <Text className="text-red-500">{formHandler.error.category}</Text>}
-            </View>
-            <View className="">
-                <Text className="font-extrabold text-2xl dark:text-white">Set Date</Text>
+            <View>
+                <Text className="font-extrabold text-2xl dark:text-white">Message Body</Text>
                 <View className="flex">
-                    <TouchableOpacity onPress={() => setShowDate(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                        <Text className=" text-base">{formHandler.value.date === '' ? 'Set Task Date' : formHandler.value.date}</Text>
-                    </TouchableOpacity>
+                    <TextInput multiline editable placeholder="Enter Message Body" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
-                {formHandler.error?.date && <Text className="text-red-500">{formHandler.error.date}</Text>}
+                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
             </View>
             <View className="flex flex-row gap-x-3">
                 <View className="flex-grow">
-                    <Text className="font-extrabold text-2xl dark:text-white">Start Time</Text>
+                    <Text className="font-extrabold text-2xl dark:text-white">Set Date</Text>
                     <View className="flex">
-                        <TouchableOpacity onPress={() => setShowStartTime(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                            <Text className=" text-base">{formHandler.value.start_time === '' ? 'Set start time' : formHandler.value.start_time}</Text>
+                        <TouchableOpacity onPress={() => setShowDate(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
+                            <Text className=" text-base">{formHandler.value.date === '' ? 'Set Task Date' : formHandler.value.date}</Text>
                         </TouchableOpacity>
                     </View>
-                    {formHandler.error?.start_time && <Text className="text-red-500">{formHandler.error.start_time}</Text>}
+                    {formHandler.error?.date && <Text className="text-red-500">{formHandler.error.date}</Text>}
                 </View>
                 <View className="flex-grow">
-                    <Text className="font-extrabold text-2xl dark:text-white">End Time</Text>
+                    <Text className="font-extrabold text-2xl dark:text-white">Set Time</Text>
                     <View className="flex">
                         <TouchableOpacity onPress={() => setShowEndTime(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
                             <Text className=" text-base">{formHandler.value.end_time === '' ? 'Set end time' : formHandler.value.end_time}</Text>
@@ -118,15 +100,8 @@ const AddTask = () => {
                     {formHandler.error?.end_time && <Text className="text-red-500">{formHandler.error.end_time}</Text>}
                 </View>
             </View>
-            <View>
-                <Text className="font-extrabold text-2xl dark:text-white">Task Description</Text>
-                <View className="flex">
-                    <TextInput multiline editable placeholder="Enter task description" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
-                </View>
-                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
-            </View>
             <TouchableOpacity onPress={() => formHandler.submit()} className="py-3 rounded-md bg-rose-500">
-                <Text className="text-white text-center text-lg">Add Task</Text>
+                <Text className="text-white text-center text-lg">Save Schedule</Text>
             </TouchableOpacity>
         </ScrollView>
     )

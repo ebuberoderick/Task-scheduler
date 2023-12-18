@@ -55,50 +55,21 @@ const Home = ({ task }) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <View className="h-80 flex justify-center">
+                <View className="h-64 flex justify-center">
                     <Text className="text-red-400 font-semibold relative top-3 pl-3 text-2xl">Today's progress summary</Text>
-                    <View className="flex flex-1 pl-3 relative">
-                        <TouchableOpacity onPress={() => console.log('hi')} className="absolute p-2 space-y-3 shadow-xl shadow-white bg-white dark:bg-gray-800 w-60 h-36 rounded-lg right-3 top-10">
-                            <View className="flex flex-row items-center gap-1">
-                                <View className="h-10 w-10 bg-gray-400 rounded-full"></View>
-                                <View className="space-y-1 flex-grow">
-                                    <View>
-                                        <Text className="font-extrabold text-base dark:text-white">title</Text>
-                                    </View>
-                                    <View className="">
-                                        <Text className="font-extrabold text-gray-400">
-                                            09:00 am - 12:30 pm
-                                        </Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <View>
-                                <Text>
-                                    REST UI is not available yet - please wait until it is available and available in your browser until then
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        <View className="rounded-md py-2">
-                            <View className="flex flex-row gap-2 items-end">
-                                <Text className="font-extrabold text-5xl pt-10 text-white">{time}</Text>
-                                <Text className="text-sm uppercase relative bottom-2 text-white">{dayLight}</Text>
-                            </View>
-                            <Text className="text-white ">{todayDate.toLocaleString('en-IN', options)}</Text>
+                    <View className="flex h-full flex-1 pl-3 relative">
+                        <View className="flex flex-row gap-2 items-end">
+                            <Text className="font-extrabold text-5xl pt-10 text-white">{time}</Text>
+                            <Text className="text-sm uppercase relative bottom-2 text-white">{dayLight}</Text>
                         </View>
-                        <View className="flex-grow space-y-1">
-                            <Text className="text-white text-sm"> 12 Task </Text>
-                            <View>
-                                <View className="flex flex-row">
-                                    <View className="w-12 h-12 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
-                                    <View className="w-12 h-12 -ml-6 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
-                                    <View className="w-12 h-12 -ml-6 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
-                                    <View className="w-12 h-12 -ml-6 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
-                                    <View className="w-12 h-12 -ml-6 border-2 border-white bg-rose-400 shadow-md rounded-full"></View>
-                                </View>
-                                <View className="w-full pr-3 pt-2">
-                                    <ProgressBar />
-                                </View>
-                            </View>
+                        <Text className="text-white ">{todayDate.toLocaleString('en-IN', options)}</Text>
+                        <View className="py-4 flex flex-row gap-3">
+                            <TouchableOpacity onPress={() => router.push(`sms`)} className="inline-flex rounded-md py-3 px-5 bg-white flex-start">
+                                <Text className="text-red-500 font-bold text-sm text-center">SMS Schedule</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => router.push(`smsView`)} className="inline-flex rounded-md py-3 px-5 bg-red-500 flex-start">
+                                <Text className="text-white font-bold text-sm text-center">View Schedule</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -108,16 +79,16 @@ const Home = ({ task }) => {
                 <View className="flex flex-auto p-3 bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden">
                     <ScrollView showsVerticalScrollIndicator={false} className="bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden">
                         {
-                            task.map((value, index) => (
-                                <TaskChip data={value} key={index} />
-                            ))
+                            task.length > 0 ? 
+                                task.map((value, index) => (
+                                    <TaskChip data={value} key={index} />
+                                ))
+                            : 
+                            <View className="flex h-full items-center justify-center"><Text className="text-gray-400 uppercase">NO Task Today</Text></View>
                         }
                     </ScrollView>
                 </View>
             </LinearGradient>
-            {/* <TouchableOpacity onPress={() => router.push(`playground`)} className="h-12 w-12 flex shadow-md shadow-teal-500 items-center justify-center bg-teal-600 absolute bottom-20 rounded-full right-4">
-                <Text className="text-white text-4xl">+</Text>
-            </TouchableOpacity> */}
             <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex shadow-md shadow-rose-500 items-center justify-center bg-rose-600 absolute bottom-3 rounded-full right-4">
                 <Text className="text-white text-4xl">+</Text>
             </TouchableOpacity>

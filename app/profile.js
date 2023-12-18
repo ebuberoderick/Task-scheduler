@@ -39,6 +39,12 @@ const profile = () => {
             <Stack.Screen
                 options={{
                     title: '',
+                    headerBackVisible: true,
+                    headerLeft: ()=> {
+                        <TouchableOpacity onPress={() => router.back()}>
+                            <Text>Back</Text>
+                        </TouchableOpacity>
+                    },
                     headerShadowVisible: false,
                     headerStyle: { backgroundColor: colorScheme === 'dark' ? '#111827' : '#fff' },
                     headerTitleStyle: {
