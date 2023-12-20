@@ -47,18 +47,18 @@ const Home = ({ task }) => {
                     <View className="h-9 w-9 overflow-hidden bg-gray-400 rounded-full">
                         <Image
                             className="h-full w-full"
-                            source={require(`./images/avatar.png`)}
+                            source={require(`./assets/avatar.png`)}
                             contentFit="cover"
                             transition={1000}
                         />
                     </View>
                     <View className="flex-grow">
                         <View>
-                            <Text className="font-extrabold text-base text-white">Hello, Roderick</Text>
+                            <Text className="font-extrabold text-base text-white">Hello, User</Text>
                         </View>
                         <View className="">
                             <Text className="font-extrabold text-xs text-gray-200">
-                                ebuberoderick2@gmail.com
+                                Welcome to sms scheduler
                             </Text>
                         </View>
                     </View>
@@ -78,9 +78,9 @@ const Home = ({ task }) => {
                             <TouchableOpacity onPress={() => router.push(`smsView`)} className="inline-flex rounded-md py-3 px-5 bg-red-500 flex-start">
                                 <Text className="text-white font-bold text-sm text-center">View Schedule</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => router.push(`smsView`)} className="inline-flex rounded-md py-3 px-5 bg-red-800 flex-start">
+                            {/* <TouchableOpacity onPress={() => router.push(`smsView`)} className="inline-flex rounded-md py-3 px-5 bg-red-800 flex-start">
                                 <Text className="text-white font-bold text-sm text-center">View All Task</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     </View>
                 </View>

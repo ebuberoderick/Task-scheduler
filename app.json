@@ -14,10 +14,23 @@
       }
     },
     "android": {
-      "package": "com.bube_code.taskscheduler"
+      "package": "com.bube_code.taskscheduler",
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
     },
     "ios": {
       "bundleIdentifier": "task-scheduler"
-    }
+    },
+    "icon": "./app/assets/icon.png",
+    "splash": {
+      "image": "./app/assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
   }
 }

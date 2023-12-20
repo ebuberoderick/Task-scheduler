@@ -7,6 +7,7 @@ import TaskChip from './components/TaskChip';
 import { Picker } from '@react-native-picker/picker';
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 import AddModal from './components/AddModal';
+import { Image } from 'expo-image';
 
 const profile = () => {
     const router = useRouter();
@@ -54,19 +55,26 @@ const profile = () => {
             />
             <View className="flex relative bottom-2 flex-col gap-2 items-center">
                 <View className="border-2 border-rose-500 p-1 relative rounded-full">
-                    <View className="h-44 w-44 bg-rose-100 rounded-full"></View>
-                    <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex items-center justify-center bg-rose-600 absolute bottom-0 rounded-full right-4">
+                    <View className="h-44 overflow-hidden w-44 bg-rose-100 rounded-full">
+                        <Image
+                            className="h-full w-full"
+                            source={require(`./assets/avatar.png`)}
+                            contentFit="cover"
+                            transition={1000}
+                        />
+                    </View>
+                    {/* <TouchableOpacity onPress={() => router.push(`addTask`)} className="h-12 w-12 flex items-center justify-center bg-rose-600 absolute bottom-0 rounded-full right-4">
                         <Text className="text-white text-4xl">+</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <View className="flex-grow">
                     <View>
-                        <Text className="text-2xl font-extrabold text-center dark:text-white">Ebube Roderick</Text>
-                        <Text className="text-base text-gray-400 text-center">ebuberoderick2@gmail.com</Text>
+                        <Text className="text-2xl font-extrabold text-center dark:text-white">User</Text>
+                        {/* <Text className="text-base text-gray-400 text-center">ebuberoderick2@gmail.com</Text> */}
                     </View>
                 </View>
             </View>
-            <View className="flex flex-row gap-x-4 px-5">
+            {/* <View className="flex flex-row gap-x-4 px-5">
                 <View className="py-3 px-2 rounded-md flex-1 bg-yellow-400 shadow-lg">
                     <Text className="text-4xl font-extrabold text-white text-center">10</Text>
                     <Text className="text-white text-center">pendind</Text>
@@ -79,7 +87,7 @@ const profile = () => {
                     <Text className="text-4xl font-extrabold text-white text-center">300</Text>
                     <Text className="text-white text-center">completed</Text>
                 </View>
-            </View>
+            </View> */}
             <View className="flex relative top-3 justify-between flex-row gap-2 items-center">
                 <Text className="text-base capitalize dark:text-white">{colorScheme} mode</Text>
                 <Switch value={colorScheme === 'dark'} onChange={() => toggleColorScheme()} />
