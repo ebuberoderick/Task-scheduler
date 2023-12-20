@@ -1,4 +1,4 @@
-import { View, Text, TextInput, FlatList, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TextInput, FlatList, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
 import { Stack, useRouter } from 'expo-router';
 import CategoryChip from './components/CategoryChip';
@@ -7,6 +7,7 @@ import { useColorScheme } from 'nativewind';
 import { useDispatch } from 'react-redux';
 import useFormHandler from './hooks/formHandler';
 import DateTime from './components/DateTime';
+import Toast from 'react-native-root-toast';
 
 const AddTask = () => {
     const dispatch = useDispatch()
@@ -20,26 +21,24 @@ const AddTask = () => {
     const [showEndTime, setShowEndTime] = useState(false)
     const formHandler = useFormHandler({
         required: {
-            title: 'Please enter your task title',
-            category: 'No category',
-            date: 'Please enter a date',
-            start_time: 'Please enter the start time',
-            end_time: 'Please enter the end time',
-            description: 'Please enter some description about your task'
+            contact: 'Please enter contact number',
+            message: 'Please enter the message body',
+            date: 'Please set a date',
+            end_time: 'Please set time',
         },
         initialValues: {
             _id: new Date().getFullYear() + '' + new Date().getMonth() + '' + new Date().getDate() + '' + new Date().getHours() + '' + new Date().getMinutes() + '' + new Date().getSeconds(),
             status: 'pending',
-            title: '',
-            category: List[0] || '',
+            contact: '',
             date: '',
-            start_time: '',
             end_time: '',
-            description: ''
+            message: ''
         },
         onSubmit: async (value) => {
-            dispatch({ type: "ADD_TASK", payload: value })
-            router.push('/')
+            ToastAndroid.show('Message Scheduled!', ToastAndroid.SHORT);
+            // <ToastNotification visible={this.state.visible}>Thanks for subscribing!</ToastNotification>
+            dispatch({ type: "ADD_SCHEDULE", payload: value })
+            router.push("/")
         }
     })
 
@@ -69,23 +68,23 @@ const AddTask = () => {
             <View>
                 <Text className="font-extrabold text-2xl dark:text-white">Contact Number</Text>
                 <View className="flex">
-                    <TextInput type="number" editable placeholder="Enter Contact Number" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput keyboardType="numeric"  maxLength={11} editable placeholder="Enter Contact Number" onChangeText={formHandler.handlerChange('contact')} value={formHandler.value.contact} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
-                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
+                {formHandler.error?.contact && <Text className="text-red-500">{formHandler.error.contact}</Text>}
             </View>
             <View>
                 <Text className="font-extrabold text-2xl dark:text-white">Message Body</Text>
                 <View className="flex">
-                    <TextInput multiline editable placeholder="Enter Message Body" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+                    <TextInput multiline editable placeholder="Enter Message Body" numberOfLines={4} onChangeText={formHandler.handlerChange('message')} value={formHandler.value.message} className="bg-white text-base h-44 dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
                 </View>
-                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
+                {formHandler.error?.message && <Text className="text-red-500">{formHandler.error.message}</Text>}
             </View>
             <View className="flex flex-row gap-x-3">
                 <View className="flex-grow">
                     <Text className="font-extrabold text-2xl dark:text-white">Set Date</Text>
                     <View className="flex">
                         <TouchableOpacity onPress={() => setShowDate(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                            <Text className=" text-base">{formHandler.value.date === '' ? 'Set Task Date' : formHandler.value.date}</Text>
+                            <Text className=" text-base">{formHandler.value.date === '' ? 'Set Date' : formHandler.value.date}</Text>
                         </TouchableOpacity>
                     </View>
                     {formHandler.error?.date && <Text className="text-red-500">{formHandler.error.date}</Text>}
@@ -94,7 +93,7 @@ const AddTask = () => {
                     <Text className="font-extrabold text-2xl dark:text-white">Set Time</Text>
                     <View className="flex">
                         <TouchableOpacity onPress={() => setShowEndTime(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                            <Text className=" text-base">{formHandler.value.end_time === '' ? 'Set end time' : formHandler.value.end_time}</Text>
+                            <Text className=" text-base">{formHandler.value.end_time === '' ? 'Set time' : formHandler.value.end_time}</Text>
                         </TouchableOpacity>
                     </View>
                     {formHandler.error?.end_time && <Text className="text-red-500">{formHandler.error.end_time}</Text>}

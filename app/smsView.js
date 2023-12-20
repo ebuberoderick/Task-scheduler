@@ -4,9 +4,10 @@ import { Stack, useRouter } from 'expo-router';
 import CategoryChip from './components/CategoryChip';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useFormHandler from './hooks/formHandler';
 import DateTime from './components/DateTime';
+import SmsViewChip from './components/SmsViewChip';
 
 const AddTask = () => {
     const dispatch = useDispatch()
@@ -14,10 +15,12 @@ const AddTask = () => {
     const { colorScheme } = useColorScheme();
     const statusBarTheme = colorScheme === 'dark' ? 'light' : 'auto';
     const List = ['design', 'learning', 'integration', 'implementation', 'study', 'programming', 'build', 'development']
-    List.push('CJDL51kPNwl')
+    const schedule = useSelector((state) => state.schedule.schedule)
     const [showDate, setShowDate] = useState(false)
     const [showStartTime, setShowStartTime] = useState(false)
     const [showEndTime, setShowEndTime] = useState(false)
+
+    console.log(schedule);
     const formHandler = useFormHandler({
         required: {
             title: 'Please enter your task title',
@@ -45,7 +48,7 @@ const AddTask = () => {
 
 
     return (
-        <ScrollView className="flex flex-1 bg-white dark:bg-gray-900 space-y-3 min-h-screen w-screen p-3 pt-0" >
+        <View className="flex flex-1 bg-white dark:bg-gray-900 space-y-3 min-h-screen w-screen p-3 pt-0" >
             <DateTime
                 showDate={showDate}
                 showStartTime={showStartTime}
@@ -57,7 +60,7 @@ const AddTask = () => {
             <StatusBar style={statusBarTheme} />
             <Stack.Screen
                 options={{
-                    title: 'Scheddule Message',
+                    title: 'Schedule Message',
                     headerBackVisible: true,
                     headerShadowVisible: false,
                     headerStyle: { backgroundColor: colorScheme === 'dark' ? '#111827' : '#fff' },
@@ -66,44 +69,21 @@ const AddTask = () => {
                     }
                 }}
             />
-            <View>
-                <Text className="font-extrabold text-2xl dark:text-white">Contact Number</Text>
-                <View className="flex">
-                    <TextInput multiline editable placeholder="Enter Contact Number" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
+            {
+                schedule.length > 0 ?
+                <View className="pb-8">
+                    <FlatList
+                        data={schedule}
+                        renderItem={({ item }) => <SmsViewChip info={item}/>}
+                        keyExtractor={item => item._id}
+                        showsVerticalScrollIndicator={false}
+                    />
+                </View>:
+                <View className="flex h-full items-center justify-center">
+                    <Text className="text-gray-400 uppercase">no Scheduled Message</Text>
                 </View>
-                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
-            </View>
-            <View>
-                <Text className="font-extrabold text-2xl dark:text-white">Message Body</Text>
-                <View className="flex">
-                    <TextInput multiline editable placeholder="Enter Message Body" onChangeText={formHandler.handlerChange('description')} value={formHandler.value.description} className="bg-white text-base dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 border-gray-300 rounded-md" />
-                </View>
-                {formHandler.error?.description && <Text className="text-red-500">{formHandler.error.description}</Text>}
-            </View>
-            <View className="flex flex-row gap-x-3">
-                <View className="flex-grow">
-                    <Text className="font-extrabold text-2xl dark:text-white">Set Date</Text>
-                    <View className="flex">
-                        <TouchableOpacity onPress={() => setShowDate(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                            <Text className=" text-base">{formHandler.value.date === '' ? 'Set Task Date' : formHandler.value.date}</Text>
-                        </TouchableOpacity>
-                    </View>
-                    {formHandler.error?.date && <Text className="text-red-500">{formHandler.error.date}</Text>}
-                </View>
-                <View className="flex-grow">
-                    <Text className="font-extrabold text-2xl dark:text-white">Set Time</Text>
-                    <View className="flex">
-                        <TouchableOpacity onPress={() => setShowEndTime(true)} className="bg-white dark:bg-gray-700 dark:border-none dark:text-white dark:placeholder:text-white border p-2 py-3 border-gray-300 rounded-md">
-                            <Text className=" text-base">{formHandler.value.end_time === '' ? 'Set end time' : formHandler.value.end_time}</Text>
-                        </TouchableOpacity>
-                    </View>
-                    {formHandler.error?.end_time && <Text className="text-red-500">{formHandler.error.end_time}</Text>}
-                </View>
-            </View>
-            <TouchableOpacity onPress={() => formHandler.submit()} className="py-3 rounded-md bg-rose-500">
-                <Text className="text-white text-center text-lg">Save Schedule</Text>
-            </TouchableOpacity>
-        </ScrollView>
+            }
+        </View>
     )
 }
 

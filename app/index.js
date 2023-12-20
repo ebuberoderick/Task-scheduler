@@ -1,5 +1,6 @@
 import { TouchableOpacity, ScrollView, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'expo-image';
 import ProgressBar from './components/ProgressBar';
 import TaskChip from './components/TaskChip';
 import { Stack, useRouter } from 'expo-router';
@@ -43,7 +44,14 @@ const Home = ({ task }) => {
                 end={{ x: 1, y: 0 }}
             >
                 <TouchableOpacity onPress={() => router.push('profile')} className="flex flex-row gap-2 items-center pt-12 px-2">
-                    <View className="h-9 w-9 bg-gray-400 rounded-full"></View>
+                    <View className="h-9 w-9 overflow-hidden bg-gray-400 rounded-full">
+                        <Image
+                            className="h-full w-full"
+                            source={require(`./images/avatar.png`)}
+                            contentFit="cover"
+                            transition={1000}
+                        />
+                    </View>
                     <View className="flex-grow">
                         <View>
                             <Text className="font-extrabold text-base text-white">Hello, Roderick</Text>
@@ -70,11 +78,14 @@ const Home = ({ task }) => {
                             <TouchableOpacity onPress={() => router.push(`smsView`)} className="inline-flex rounded-md py-3 px-5 bg-red-500 flex-start">
                                 <Text className="text-white font-bold text-sm text-center">View Schedule</Text>
                             </TouchableOpacity>
+                            <TouchableOpacity onPress={() => router.push(`smsView`)} className="inline-flex rounded-md py-3 px-5 bg-red-800 flex-start">
+                                <Text className="text-white font-bold text-sm text-center">View All Task</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
                 <View>
-                    <Text className="text-base font-extrabold text-white px-3 py-2 relative bottom-1">Today's Task</Text>
+                    <Text className="text-base font-extrabold text-white px-3 py-2 relative bottom-1">Upcoming Task</Text>
                 </View>
                 <View className="flex flex-auto p-3 bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden">
                     <ScrollView showsVerticalScrollIndicator={false} className="bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden">
@@ -84,7 +95,7 @@ const Home = ({ task }) => {
                                     <TaskChip data={value} key={index} />
                                 ))
                             : 
-                            <View className="flex h-full items-center justify-center"><Text className="text-gray-400 uppercase">NO Task Today</Text></View>
+                            <View className="flex h-full items-center justify-center"><Text className="text-gray-400 uppercase">NO up coming Task</Text></View>
                         }
                     </ScrollView>
                 </View>

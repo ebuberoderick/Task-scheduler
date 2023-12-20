@@ -1,5 +1,5 @@
 const initialState = {
-  task: []
+  schedule: []
 }
 
 
@@ -10,25 +10,25 @@ const update = (e,data) => {
   return newState
 }
 
-const taskReducer = (state = initialState, { type, payload }) => {
+const scheduleReducer = (state = initialState, { type, payload }) => {
   switch (type) {
 
-    case "ADD_TASK":
+    case "ADD_SCHEDULE":
       return {
         ...state,
-        task: [payload, ...state.task]
+        schedule: [payload, ...state.schedule]
       }
 
-      case "UPDATE_TASK":
+      case "UPDATE_SCHEDULE":
         return {
           ...state,
-          task: update(payload,[...state.task])
+          schedule: update(payload,[...state.schedule])
         }
 
-      case "DELETE_TASK":
+      case "DELETE_SCHEDULE":
         return {
           ...state,
-          task: payload
+          schedule: payload
         }
       
     default:
@@ -36,4 +36,4 @@ const taskReducer = (state = initialState, { type, payload }) => {
   }
 }
 
-export default taskReducer
+export default scheduleReducer

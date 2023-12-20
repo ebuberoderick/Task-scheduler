@@ -29,7 +29,7 @@ const TaskDetails = () => {
         }}
       />
       <TaskDetailsComponent data={data[0]} />
-      <View className="flex flex-row justify-between items-center">
+      <View className="flex flex-row justify-between items-center pt-6">
         <Text className="font-extrabold text-2xl dark:text-white">Upcoming Task</Text>
         <TouchableOpacity onPress={()=> router.push(`addTask`)} className="flex items-center flex-row gap-x-2 py-2 bg-rose-500 rounded-md px-4">
           <Text className="text-xl pb-1 text-white">+</Text>

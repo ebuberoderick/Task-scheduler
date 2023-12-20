@@ -30,12 +30,14 @@
     "react-native-gesture-handler": "~2.9.0",
     "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-reanimated": "~2.14.4",
+    "react-native-root-toast": "^3.5.1",
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "~3.20.0",
     "react-native-web": "~0.18.7",
     "react-redux": "^8.1.1",
     "redux": "^4.2.1",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "expo-image": "~1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
@@ -51,6 +53,6 @@
     "metro-resolver": "^0.73.7"
   },
   "name": "task-scheduler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true
 }

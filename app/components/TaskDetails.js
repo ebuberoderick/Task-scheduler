@@ -1,19 +1,34 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import Draggable from 'react-native-draggable';
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'expo-router';
+import { AntDesign } from '@expo/vector-icons';
 
 const TaskDetailsComponent = ({ data }) => {
     const dispatch = useDispatch()
+    const router = useRouter()
+    const tasks = useSelector((state) => state.task.task)
+
+    const deleteTask = (id) => {
+        const datax = tasks.filter(taskx => taskx._id !== id)
+        dispatch({ type: "DELETE_TASK", payload: datax })
+        router.push('/')
+    }
 
     return (
         <View className="space-y-3">
             <View className="">
-                <Text className="font-extrabold text-3xl dark:text-white">{data?.title}</Text>
+                <View className="flex flex-row">
+                    <Text className="font-extrabold flex-grow text-3xl dark:text-white">{data?.title}</Text>
+                    <TouchableOpacity onPress={()=> deleteTask(data?._id)} className="bg-red-600 px-3 py-2 rounded-md"><Text className="text-white">Delete Task</Text></TouchableOpacity>
+                </View>
                 <Text className="text-lg relative bottom-1 text-gray-400">{data?.category}</Text>
             </View>
             <View className="flex relative bottom-2 flex-row gap-2 items-center">
-                <View className="h-9 w-9 bg-rose-200 shadow-md shadow-rose-400 rounded-full"></View>
+                <View className="h-9 w-9 bg-rose-100 shadow-md shadow-rose-200 rounded-full flex items-center justify-center">
+                    <Text className="text-rose-500 "><AntDesign name="calendar" size={24} /></Text>
+                </View>
                 <View className="flex-grow">
                     <View>
                         <Text className="text-base dark:text-white">{data?.date}, {data?.start_time} - {data?.end_time}</Text>

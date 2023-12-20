@@ -1,6 +1,7 @@
 import { Stack } from "expo-router"; 
 import reduxStore from "./store/store";
 import { Provider } from "react-redux";
+import { RootSiblingParent } from 'react-native-root-siblings';
 import { PersistGate } from 'redux-persist/integration/react'
 
 
@@ -10,7 +11,9 @@ const Layout = () => {
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <Stack />
+                <RootSiblingParent>
+                    <Stack />
+                </RootSiblingParent>
             </PersistGate>
         </Provider>
     )
