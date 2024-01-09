@@ -10,6 +10,14 @@ const update = (e,data) => {
   return newState
 }
 
+const edit = (e,data) => {
+  const newState = data.map(obj =>
+    obj._id === e._id ? e : obj
+  );
+  // console.log(e);
+  return newState
+}
+
 const taskReducer = (state = initialState, { type, payload }) => {
   switch (type) {
 
@@ -30,7 +38,13 @@ const taskReducer = (state = initialState, { type, payload }) => {
           ...state,
           task: payload
         }
-      
+
+      case "EDIT_TASK":
+        return {
+          ...state,
+          task: edit(payload,[...state.task])
+        }
+        
     default:
       return state
   }

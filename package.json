@@ -54,6 +54,6 @@
     "metro-resolver": "^0.73.7"
   },
   "name": "task-scheduler",
-  "version": "1.0.1",
+  "version": "1.3.3",
   "private": true
 }

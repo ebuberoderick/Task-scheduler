@@ -1,11 +1,11 @@
 {
   "expo": {
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "scheme": "acme",
     "web": {
       "bundler": "metro"
     },
-    "name": "Task scheduler",
+    "name": "Event Scheduler",
     "slug": "task-scheduler",
     "orientation": "portrait",
     "extra": {

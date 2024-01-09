@@ -13,8 +13,8 @@ const AddTask = () => {
     const router = useRouter();
     const { colorScheme } = useColorScheme();
     const statusBarTheme = colorScheme === 'dark' ? 'light' : 'auto';
-    const List = ['design', 'learning', 'integration', 'implementation', 'study', 'programming', 'build', 'development']
-    List.push('CJDL51kPNwl')
+    const List = ["Lunch","Meeting","Presentation","Supervision","Travel" ,"Errands","Obligations","Work"]
+    // List.push('CJDL51kPNwl')
     const [showDate, setShowDate] = useState(false)
     const [showStartTime, setShowStartTime] = useState(false)
     const [showEndTime, setShowEndTime] = useState(false)

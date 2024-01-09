@@ -69,7 +69,7 @@ const profile = () => {
                 </View>
                 <View className="flex-grow">
                     <View>
-                        <Text className="text-2xl font-extrabold text-center dark:text-white">User</Text>
+                        <Text className="text-2xl font-extrabold text-center dark:text-white"> Eze Divine Chibueze</Text>
                         {/* <Text className="text-base text-gray-400 text-center">ebuberoderick2@gmail.com</Text> */}
                     </View>
                 </View>
@@ -88,10 +88,10 @@ const profile = () => {
                     <Text className="text-white text-center">completed</Text>
                 </View>
             </View> */}
-            <View className="flex relative top-3 justify-between flex-row gap-2 items-center">
+            {/* <View className="flex relative top-3 justify-between flex-row gap-2 items-center">
                 <Text className="text-base capitalize dark:text-white">{colorScheme} mode</Text>
                 <Switch value={colorScheme === 'dark'} onChange={() => toggleColorScheme()} />
-            </View>
+            </View> */}
             <View className="flex justify-between flex-row gap-2 items-center">
                 <Text className="text-base flex-1 capitalize dark:text-white">Pre noitify</Text>
                 {/* <Text className="text-base capitalize text-gray-400">15 mins</Text> */}

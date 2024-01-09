@@ -60,6 +60,9 @@ const TaskDetailsComponent = ({ data }) => {
                     {data?.description}
                 </Text>
             </View>
+            <View className="pt-7">
+                <TouchableOpacity onPress={()=> router.push(`edittask/${data?._id}`)} className="py-3 px-6 bg-red-800 rounded-md w-24"><Text className="text-white text-center uppercase">Edit</Text></TouchableOpacity>
+            </View>
         </View>
     )
 }

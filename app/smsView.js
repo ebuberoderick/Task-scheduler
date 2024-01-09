@@ -20,7 +20,6 @@ const AddTask = () => {
     const [showStartTime, setShowStartTime] = useState(false)
     const [showEndTime, setShowEndTime] = useState(false)
 
-    console.log(schedule);
     const formHandler = useFormHandler({
         required: {
             title: 'Please enter your task title',

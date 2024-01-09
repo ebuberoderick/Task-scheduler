@@ -54,11 +54,11 @@ const Home = ({ task }) => {
                     </View>
                     <View className="flex-grow">
                         <View>
-                            <Text className="font-extrabold text-base text-white">Hello, User</Text>
+                            <Text className="font-extrabold text-base text-white">Hello,  Eze Divine Chibueze</Text>
                         </View>
                         <View className="">
                             <Text className="font-extrabold text-xs text-gray-200">
-                                Welcome to sms scheduler
+                                Welcome to SMS Alerting and Event Scheduler
                             </Text>
                         </View>
                     </View>
